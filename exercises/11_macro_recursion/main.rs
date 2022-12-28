@@ -1,4 +1,16 @@
 // TODO: Create the `curry!()` macro.
+//
+macro_rules! curry {
+    (_, $block:block) => {
+        $block
+    };
+    (($i_h:ident: $t_h:ty) => $(($i:ident: $t:ty) => )* _, $block:block) => {
+        move |$i_h: $t_h| {
+            print_curried_argument($i_h);
+            curry!( $(($i:$t) => )* _, $block)
+        }
+    };
+}
 
 ////////// DO NOT CHANGE BELOW HERE /////////
 
